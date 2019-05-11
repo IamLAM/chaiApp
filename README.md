@@ -1,2 +1,1 @@
-# chaiApp
-Using https://www.chaijs.com/
+QA with mocha & chai
