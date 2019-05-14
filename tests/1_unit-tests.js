@@ -125,8 +125,8 @@ suite('Unit Tests', function(){
     
     /** 12 - #include vs #notInclude **/
     test('Array #include, #notInclude', function() {
-      assert.fail(winterMonths, 'jul', "It's summer in july...");
-      assert.fail(backendLanguages, 'javascript', 'JS is a backend language !!');
+      assert.notInclude(winterMonths, 'jul', "It's summer in july...");
+      assert.include(backendLanguages, 'javascript', 'JS is a backend language !!');
     });
   });
 
@@ -140,9 +140,9 @@ suite('Unit Tests', function(){
     
     /** 13 - #isString asserts that the actual value is a string. **/
     test('#isString, #isNotString', function() {
-      assert.fail(Math.sin(Math.PI/4), 'a float is not a string');
-      assert.fail(process.env.PATH, 'env vars are strings (or undefined)');
-      assert.fail(JSON.stringify({type: 'object'}), 'a JSON is a string');
+      assert.isNotString(Math.sin(Math.PI/4), 'a float is not a string');
+      assert.isString(process.env.PATH, 'env vars are strings (or undefined)');
+      assert.isString(JSON.stringify({type: 'object'}), 'a JSON is a string');
     });
     
     /** 14 - #include (on #notInclude ) works for strings too !! **/
