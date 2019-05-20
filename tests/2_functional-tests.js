@@ -138,16 +138,23 @@ suite('Functional Tests', function() {
       // Try it again. This time without help !!
       test('send {surname: "da Verrazzano"}', function(done) {
         /** place the chai-http request code here... **/
-        
+           chai.request(server)
+        .put('/travellers')
+        /** send {surname: 'Colombo'} here **/
+        .send( {name:'Giovanni',surname: 'da Verrazzano'})
+        .end(function(err, res){
         /** place your tests inside the callback **/
         
-        assert.fail(); // remove this after adding tests
+         assert.equal(res.status, 200, 'response status should be 200');
+            assert.equal(res.type, 'application/json', "Response should be json");
+          assert.equal(res.body.name,'Giovanni','res.body.name should be "Giovanni"'); // remove this after adding tests
+           assert.equal(res.body.surname,'da Verrazzano','res.body.surname should be "da Verrazzano"'); // remove this after adding tests
+         
         done();
       });
     });
-
-  });
-
+});
+});
   // In the next challenges we are going to simulate the human interaction with
   // a page using a device called 'Headless Browser'. A headless browser is a web
   // browser without a graphical user interface. These kind of tools are
@@ -231,6 +238,7 @@ suite('Functional Tests', function() {
         //
         // in the callback...
         // assert that status is OK 200
+        
         // assert that the text inside the element 'span#name' is 'Cristoforo'
         // assert that the text inside the element 'span#surname' is 'Colombo'
         // assert that the element(s) 'span#dates' exist and their count is 1
@@ -239,18 +247,23 @@ suite('Functional Tests', function() {
           .pressButton('submit', function(){
             
             /** YOUR TESTS HERE, Don't forget to remove assert.fail() **/
-            
+                // assert that status is OK 200
+            browser.assert.success();
+            // assert that the text inside the element 'span#name' is 'Marco'
+            browser.assert.text('span#name', 'Cristoforo');
+            // assert that the text inside the element 'span#surname' is 'Polo'
+            browser.assert.text('span#surname', 'Colombo');
+            // assert that the element(s) 'span#dates' exist and their count is 1
+            browser.assert.element('span#dates', 1);
             // pressButton is Async.  Waits for the ajax call to complete...
 
             // assert that status is OK 200
-
-            // assert that the text inside the element 'span#name' is 'Marco'
-
+              
             // assert that the text inside the element 'span#surname' is 'Polo'
 
             // assert that the element(s) 'span#dates' exist and their count is 1
             
-            assert.fail();
+          
             
             done();   // It's an async test, so we have to call 'done()''
           });
@@ -259,16 +272,26 @@ suite('Functional Tests', function() {
       
       /** Try it again... No help this time **/
       test('submit "surname" : "Vespucci" - write your e2e test...', function(done) {
-
-        // fill the form, and submit.
-        // assert that status is OK 200
+ browser
+          .fill('surname', 'Vespucci')
+          .pressButton('submit', function(){
+            browser.assert.success();
+            // assert that the text inside the element 'span#name' is 'Marco'
+            browser.assert.text('span#name', 'Amerigo');
+            // assert that the text inside the element 'span#surname' is 'Polo'
+            browser.assert.text('span#surname', 'Vespucci');
+            // assert that the element(s) 'span#dates' exist and their count is 1
+            browser.assert.element('span#dates', 1);
+            // pressButton is Async.  Waits for the ajax call to complete...
         // assert that the text inside the element 'span#name' is 'Amerigo'
         // assert that the text inside the element 'span#surname' is 'Vespucci'
         // assert that the element(s) 'span#dates' exist and their count is 1
-        assert.fail();
+
         done();
       
       });
     });
   });
-});
+});});
+
+
