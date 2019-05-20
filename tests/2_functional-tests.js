@@ -71,7 +71,7 @@ suite('Functional Tests', function() {
             // Replace assert.fail(). Make the test pass.
             // Test the status and the text response. Follow the test order like above.
             assert.equal(res.status, 200);
-             assert.equal(res.text, 'hello xy_z'/** <==  Put your name here **/);
+             assert.equal(res.text, 'hello monge'/** <==  Put your name here **/);
             done();   // Always call the 'done()' callback when finished.
           });
       });
@@ -121,12 +121,15 @@ suite('Functional Tests', function() {
        chai.request(server)
         .put('/travellers')
         /** send {surname: 'Colombo'} here **/
-        // .send({...})
+        .send( {name:'Cristoforo',surname: 'Colombo'})
         .end(function(err, res){
           
           /** your tests here **/
-          assert.fail(); // remove this after adding tests
-          
+           assert.equal(res.status, 200, 'response status should be 200');
+            assert.equal(res.type, 'application/json', "Response should be json");
+          assert.equal(res.body.name,'Cristoforo','res.body.name should be "Cristoforo"'); // remove this after adding tests
+           assert.equal(res.body.surname,'Colombo','res.body.surname should be "Colombo"'); // remove this after adding tests
+         
           done(); // Never forget the 'done()' callback...
         });
       });
